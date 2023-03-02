@@ -2,12 +2,7 @@ import UIKit
 import SnapKit
 import Then
 
-class ViewController: UIViewController, ImageDelegate {
-    func loadButtonDidTap(cell: ImagesTableViewCell) {
-        
-    }
-    
-    
+class ViewController: UIViewController {
     private let imageTableView = UITableView().then {
         $0.rowHeight = 70
         $0.register(ImagesTableViewCell.self, forCellReuseIdentifier: ImagesTableViewCell.identifier)
@@ -55,6 +50,8 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ImagesTableViewCell.identifier, for: indexPath) as? ImagesTableViewCell else { return UITableViewCell() }
+        
+        cell.index = indexPath.row
         return cell
     }
 

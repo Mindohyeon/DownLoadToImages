@@ -4,8 +4,8 @@ import Then
 class ImagesTableViewCell: UITableViewCell {
     static let identifier = "ImageTableViewCell"
     
-    weak var delegate: ImageDelegate?
-
+    var index = 0
+    
     private let downLoadImageView = UIImageView().then {
         $0.image = UIImage(systemName: "photo")
         $0.sizeToFit()
@@ -37,8 +37,10 @@ class ImagesTableViewCell: UITableViewCell {
     }
     
     @objc private func loadButtonDidTap(_ sender: UIButton) {
+        
+        print(index)
         var url = ""
-        switch sender.tag {
+        switch index {
         case 0:
             url = "https://digitalauto.hyundaicapital.com//assets/images/potal/mainCarImg/IGJS.png"
         case 1:
@@ -51,7 +53,11 @@ class ImagesTableViewCell: UITableViewCell {
             print("default")
         }
         
-        downLoadImageView.load(url: url)
+        downLoadImageView.load(url: URL(string: url)!)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.downLoadImageView.image = UIImage(systemName: "photo")
+        }
     }
     
     private func addView() {
