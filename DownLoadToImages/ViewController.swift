@@ -2,14 +2,8 @@ import UIKit
 import SnapKit
 import Then
 
-protocol loadAllDelegate: AnyObject {
-    func loadAllButtonDidTap()
-}
-
-class ViewController: UIViewController {
-    weak var delegate: loadAllDelegate?
-    
-    var imageUrl: [String] {
+final class ViewController: UIViewController {
+    private var imageUrl: [String] {
         return [
             "https://digitalauto.hyundaicapital.com//assets/images/potal/mainCarImg/IGJS.png",
             "http://www.dailyenews.co.kr/news/photo/202105/22354_19656_1216.jpg",
@@ -18,6 +12,7 @@ class ViewController: UIViewController {
             "https://digitalauto.hyundaicapital.com//assets/images/potal/mainCarImg/IGJS.png"
         ]
     }
+    
     private let imageTableView = UITableView().then {
         $0.rowHeight = 70
         $0.register(ImagesTableViewCell.self, forCellReuseIdentifier: ImagesTableViewCell.identifier)
@@ -45,13 +40,13 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 if let cell = self.imageTableView.cellForRow(at: IndexPath(row: i, section: 0)) as? ImagesTableViewCell {
                     cell.downLoadImageView.image = UIImage(systemName: "photo")
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                         cell.downLoadImageView.load(url: URL(string: self.imageUrl[i])!)
+                        
                     }
                 }
             }
         }
-        
     }
     
     func addView() {
@@ -80,7 +75,6 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ImagesTableViewCell.identifier, for: indexPath) as? ImagesTableViewCell else { return UITableViewCell() }
-        
         cell.index = indexPath.row
         return cell
     }

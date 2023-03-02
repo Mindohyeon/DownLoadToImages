@@ -1,9 +1,8 @@
 import UIKit
 import SnapKit
 import Then
-class ImagesTableViewCell: UITableViewCell, loadAllDelegate {
-    let vc = ViewController()
-    
+
+final class ImagesTableViewCell: UITableViewCell {
     static let identifier = "ImageTableViewCell"
     
     private let url = URLStore.share
@@ -34,7 +33,6 @@ class ImagesTableViewCell: UITableViewCell, loadAllDelegate {
         
         addView()
         setLayout()
-        vc.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -43,19 +41,18 @@ class ImagesTableViewCell: UITableViewCell, loadAllDelegate {
     
     @objc private func loadButtonDidTap(_ sender: UIButton) {
         var urlString = ""
-        
-        print("index = \(index)")
+
         switch index {
         case 0:
-            urlString = url.firstURL
+            urlString = url.imageUrl[0]
         case 1:
-            urlString = url.secondURL
+            urlString = url.imageUrl[1]
         case 2:
-            urlString = url.thirdURL
+            urlString = url.imageUrl[2]
         case 3:
-            urlString = url.fourthURL
+            urlString = url.imageUrl[3]
         case 4:
-            urlString = url.fifthURL
+            urlString = url.imageUrl[4]
         default:
             print("default")
         }
