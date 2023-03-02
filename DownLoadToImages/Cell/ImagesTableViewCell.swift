@@ -1,12 +1,16 @@
 import UIKit
 import SnapKit
 import Then
-class ImagesTableViewCell: UITableViewCell {
+class ImagesTableViewCell: UITableViewCell, loadAllDelegate {
+    let vc = ViewController()
+    
     static let identifier = "ImageTableViewCell"
+    
+    private let url = URLStore.share
     
     var index = 0
     
-    private let downLoadImageView = UIImageView().then {
+    let downLoadImageView = UIImageView().then {
         $0.image = UIImage(systemName: "photo")
         $0.sizeToFit()
     }
@@ -30,6 +34,7 @@ class ImagesTableViewCell: UITableViewCell {
         
         addView()
         setLayout()
+        vc.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -37,27 +42,32 @@ class ImagesTableViewCell: UITableViewCell {
     }
     
     @objc private func loadButtonDidTap(_ sender: UIButton) {
+        var urlString = ""
         
-        print(index)
-        var url = ""
+        print("index = \(index)")
         switch index {
         case 0:
-            url = "https://digitalauto.hyundaicapital.com//assets/images/potal/mainCarImg/IGJS.png"
+            urlString = url.firstURL
         case 1:
-            url = "http://www.dailyenews.co.kr/news/photo/202105/22354_19656_1216.jpg"
+            urlString = url.secondURL
         case 2:
-            url = "https://www.hyundai.com/contents/repn-car/side-45/avante-22my-45side.png"
+            urlString = url.thirdURL
         case 3:
-            url = "https://blog.kakaocdn.net/dn/wH7Q6/btrh2ipZouW/siYgr5GUAHpr4NV3ib4Gyk/img.jpg"
+            urlString = url.fourthURL
+        case 4:
+            urlString = url.fifthURL
         default:
             print("default")
         }
-        
-        downLoadImageView.load(url: URL(string: url)!)
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-            self.downLoadImageView.image = UIImage(systemName: "photo")
+        self.downLoadImageView.image = UIImage(systemName: "photo")
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
+            self.downLoadImageView.load(url: URL(string: urlString)!)
         }
+    }
+    
+    func loadAllButtonDidTap() {
+        print("asdf")
+        downLoadImageView.load(url: URL(string: "https://digitalauto.hyundaicapital.com//assets/images/potal/mainCarImg/IGJS.png")!)
     }
     
     private func addView() {
