@@ -57,7 +57,7 @@ final class ImagesTableViewCell: UITableViewCell {
             print("default")
         }
         self.downLoadImageView.image = UIImage(systemName: "photo")
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
             self.downLoadImageView.load(url: URL(string: urlString)!)
         }
     }
