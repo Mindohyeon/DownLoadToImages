@@ -62,11 +62,6 @@ final class ImagesTableViewCell: UITableViewCell {
         }
     }
     
-    func loadAllButtonDidTap() {
-        print("asdf")
-        downLoadImageView.load(url: URL(string: "https://digitalauto.hyundaicapital.com//assets/images/potal/mainCarImg/IGJS.png")!)
-    }
-    
     private func addView() {
         contentView.addSubviews(downLoadImageView, progressBarLine, loadButton)
     }

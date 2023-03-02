@@ -2,6 +2,7 @@ import Foundation
 
 struct URLStore {
     static let share = URLStore()
+    
     var imageUrl: [String] = [
         "https://digitalauto.hyundaicapital.com//assets/images/potal/mainCarImg/IGJS.png",
         "http://www.dailyenews.co.kr/news/photo/202105/22354_19656_1216.jpg",
